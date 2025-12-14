@@ -27,6 +27,7 @@ async function main() {
           priceCents: faker.number.int({ min: 100, max: 20000 }),
           sku: `SKU-${Date.now().toString().slice(-6)}-${i}`,
           inventory: faker.number.int({ min: 5, max: 200 }),
+          imageUrl: `https://picsum.photos/seed/product-${i}/600/400`,
         },
       })
     );

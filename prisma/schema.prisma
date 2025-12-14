@@ -23,6 +23,7 @@ model Product {
   priceCents  Int
   sku         String   @unique
   inventory   Int
+  imageUrl    String?
   createdAt   DateTime @default(now())
 
   // <-- add opposite relation for CartItem

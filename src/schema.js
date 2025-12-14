@@ -17,6 +17,7 @@ const typeDefs = gql`
     priceCents: Int!
     sku: String!
     inventory: Int!
+    imageUrl: String
   }
 
   type CartItem {
