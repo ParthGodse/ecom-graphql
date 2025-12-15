@@ -1,6 +1,7 @@
 // components/AddToCartButton.js
 'use client';
 import { useState, useEffect } from 'react';
+import toast from 'react-hot-toast';
 
 export default function AddToCartButton({ product }) {
   const [qty, setQty] = useState(1);
@@ -24,24 +25,26 @@ export default function AddToCartButton({ product }) {
   const add = () => {
     setLoading(true);
     try {
-      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+      const cart = JSON.parse(localStorage.getItem("cart") || "[]");
       const existing = cart.find((i) => String(i.productId) === String(product.id));
-      if (existing) existing.quantity = existing.quantity + qty;
-      else cart.push({
-        productId: product.id,
-        name: product.name,
-        priceCents: product.priceCents,
-        quantity: qty,
-      });
-      localStorage.setItem('cart', JSON.stringify(cart));
-      // notify header & other listeners
-      window.dispatchEvent(new Event('storage'));
-      // optional visual feedback
-      // you can swap console.log with a toast library
-      console.log(`Added ${qty} x ${product.name} to cart`);
+
+      if (existing) existing.quantity += qty;
+      else {
+        cart.push({
+          productId: product.id,
+          name: product.name,
+          priceCents: product.priceCents,
+          quantity: qty,
+          imageUrl: product.imageUrl,
+        });
+      }
+
+      localStorage.setItem("cart", JSON.stringify(cart));
+      window.dispatchEvent(new Event("storage"));
+
+      toast.success(`${qty} × ${product.name} added to cart`);
     } catch (err) {
-      console.error(err);
-      alert('Could not add to cart');
+      toast.error("Could not add to cart");
     } finally {
       setLoading(false);
     }
