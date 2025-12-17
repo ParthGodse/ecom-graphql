@@ -1,13 +1,13 @@
 import 'dotenv/config'
-import { defineConfig } from 'prisma/config'
+import { defineConfig, env } from "prisma/config";
 
 export default defineConfig({
   schema: 'prisma/schema.prisma',
-  migrations: {
+  migrations: { 
     path: 'prisma/migrations',
+    seed: 'tsx prisma/seed.ts',
   },
-  datasource: {
-    // Prefer process.env so missing vars don't cause an error at config-load.
-    url: process.env.DATABASE_URL ?? 'file:./prisma/dev.db',
-  },
-})
+  datasource: { 
+    url: env("DATABASE_URL") 
+  }
+});
