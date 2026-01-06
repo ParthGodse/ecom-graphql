@@ -3,10 +3,9 @@ require('dotenv/config');
 const bcrypt = require('bcryptjs');
 const { faker } = require('@faker-js/faker');
 const { PrismaClient } = require('@prisma/client');
-const { PrismaBetterSqlite3 } = require('@prisma/adapter-better-sqlite3');
 
 // We'll instantiate PrismaClient the same way as in src/db.js:
-const prisma = new PrismaClient({ adapter: new PrismaBetterSqlite3({ url: process.env.DATABASE_URL ?? 'file:./prisma/dev.db' }) });
+const prisma = new PrismaClient();
 
 async function main() {
   const hashed = await bcrypt.hash('password', 10);
